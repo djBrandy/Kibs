@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /science-categories/
+Disallow: /science-items/
+Disallow: /pipeline-categories/
+Disallow: /pipeline-items/
