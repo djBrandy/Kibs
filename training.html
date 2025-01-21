@@ -497,41 +497,81 @@
                     width: 75%;
                }
 
-
-               .table_visiting_hours {
-                    width: 80%;
-                    margin: 0 auto;
-                    padding: 20px;
-                    text-align: center;
-                    background: rgba(255, 255, 255, 0.1);
+               /* General table styling */
+               /* Table with background image */
+               .table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin: 20px auto;
+                    background: url('https://www.kibs.co.ke/wp/wp-content/uploads/2023/11/Outsource-Clinical-Trials.jpeg') no-repeat center center;
+                    background-size: cover;
+                    /* Ensure the image covers the table area */
+                    padding: 15px;
+                    box-shadow: 0 4px 10px rgba(28, 204, 57, 0.5);
+                    /* Red shadow effect */
                     border-radius: 10px;
-                    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-                    backdrop-filter: blur(5px);
-                    -webkit-backdrop-filter: blur(5px);
+                    overflow: hidden;
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
                }
 
-
-               .h1_table_visiting_hours {
-                    font-size: 2.5em;
-                    text-align: center;
-                    color: rgba(255, 255, 255, 0.8);
-                    text-shadow: 0 0 10px #ffffff, 0 0 20px #ff8c00, 0 0 30px #ff8c00, 0 0 40px #ff8c00;
-                    animation: glittering 2s infinite alternate;
-                    margin-bottom: 20px;
+               /* Floating effect with slight hover */
+               .table:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 6px 15px rgba(32, 206, 133, 0.7);
+                    /* Slightly stronger red shadow */
                }
 
-               @keyframes glittering {
-                    0% {
-                         text-shadow: 0 0 10px #ffffff, 0 0 20px #ff8c00, 0 0 30px #ff8c00, 0 0 40px #ff8c00;
-                    }
+               /* Table headers */
+               .table th {
+                    text-align: left;
+                    padding: 15px;
+                    background-color: rgba(255, 255, 255, 0.9);
+                    /* Semi-transparent white for better contrast */
+                    font-size: 1.1em;
+                    color: #333;
+               }
 
-                    50% {
-                         text-shadow: 0 0 5px #ffffff, 0 0 10px #ff8c00, 0 0 20px #ff8c00, 0 0 30px #ff4500;
-                    }
+               /* Table rows */
+               .table td,
+               .table th {
+                    padding: 10px 15px;
+                    text-align: left;
+                    vertical-align: middle;
+                    border-bottom: 1px solid #ddd;
+                    background-color: rgba(255, 255, 255, 0.8);
+                    /* Semi-transparent white */
+               }
 
-                    100% {
-                         text-shadow: 0 0 15px #ffffff, 0 0 25px #ffa500, 0 0 35px #ff8c00, 0 0 45px #ff4500;
-                    }
+               /* Padding effect for better spacing */
+               .table td {
+                    word-wrap: break-word;
+                    white-space: normal;
+               }
+
+               /* Highlight even rows */
+               .table tr:nth-child(even) {
+                    background-color: rgba(249, 249, 249, 0.8);
+                    /* Slightly transparent */
+               }
+
+               /* Hover effect on rows */
+               .table tbody tr:hover {
+                    background-color: rgba(255, 236, 236, 0.8);
+                    /* Slightly transparent */
+                    cursor: pointer;
+               }
+
+               /* Links under the course title */
+               .table a {
+                    text-decoration: none;
+                    color: #302e2e;
+                    font-weight: bold;
+                    transition: color 0.3s ease, text-shadow 0.3s ease;
+               }
+
+               .table a:hover {
+                    color: #2e6bdd;
+                    text-shadow: 0 0 5px #ff9999;
                }
           </style>
      </div>
@@ -632,88 +672,132 @@
           <br><br><br>
           <br><br><br>
 
+          <div>
+               <p>We provide short courses to clinicians, students, researchers and scientists in the medical,
+                    biological, agricultural, pharma, and biotechnology industries who wish to gain bioinformatics,
+                    laboratory and molecular biology skills. Our courses are meant to enhance the trainees’ capacity to
+                    conduct world class scientific research and boost their institution’s profile as a leading
+                    diagnostic and scientific center. <br>
+
+                    Our list of courses are shown below. Please click on each course for more details.</p>
+
+                    <br><br>
+          </div>
+
 
           <section>
 
                <table class="table">
                     <thead>
-                      <tr>
-                        <th scope="col">COURSE TITLE</th>
-                        <th scope="col">DURATION (DAYS)</th>
-                        <th scope="col">DATES</th>
-                        
-                      </tr>
-                    </thead>
-                    <tbody class="table-group-divider">
-                      <tr>
-                        <th scope="row">bioinformatics 1</th>
-                        <td>3 Months</td>
-                        <td>
-                         January - March <br>
-                         April - June <br>
-                         July - September <br>
-                         October - December <br>
+                         <tr>
+                              <th scope="col">
+                                   <h3>COURSE TITLE</h3>
+                              </th>
+                              <th scope="col">
+                                   <h3>DURATION (DAYS)</h3>
+                              </th>
+                              <th scope="col">
+                                   <h3>DATES</h3>
+                              </th>
 
-                        </td>
-                        
-                      </tr>
-                      <tr>
-                        <th scope="row">NextGen Sequencing (NGS) Data Analysis</th>
-                        <td>10 days</td>
-                        <td>Every 2nd and 3rd weeks of the month</td>
-                        
-                      </tr>
-                      <tr>
-                        <th scope="row">Metagenomics</th>
-                        <td colspan="2">8 days</td>
-                        <td>@1st Week of every month</td>
-                      </tr>
-                      <tr>
-                         <th scope="row">Metabolomics</th>
-                         <td colspan="2">5 days</td>
-                         <td>The 4th Week of every month</td>
-                       </tr>
-                       <tr>
-                         <th scope="row">Computer Aided Drug Design</th>
-                         <td colspan="2">10 days</td>
-                         <td>Every first 2 Weeks of the month</td>
-                       </tr>
-                       <tr>
-                         <th scope="row">Designing Point of Care Diagnostics use of CRISPR- Cas System</th>
-                         <td colspan="2">5 days</td>
-                         <td>The 3rd Week of every month</td>
-                       </tr>
-                       <tr>
-                         <th scope="row">Genome Editing using CRISPR-Cas</th>
-                         <td colspan="2">5 days</td>
-                         <td>The 4th Week of every month</td>
-                       </tr>
-                       <tr>
-                         <th scope="row">PCR bootcamp</th>
-                         <td colspan="2">5 days</td>
-                         <td>The 1st Week of every month</td>
-                       </tr>
-                       <tr>
-                         <th scope="row">Python Programming for Bio Scientists</th>
-                         <td colspan="2">2 months</td>
-                         <td>
-                              January - February <br>
-                              March - April <br>
-                              May - June <br>
-                              July - August <br>
-                              September - October <br>
-                              November - December <br>
-                         
-                         </td>
-                       </tr>
-                       <tr>
-                         <th scope="row">Techniques in Nanopore DNA/RNA sequencing of Data Analysis</th>
-                         <td colspan="2">7 days</td>
-                         <td>The 3rd Week of every month</td>
-                       </tr>
-                       
+                         </tr>
+                    </thead>
+
+
+                    <tbody class="table-group-divider">
+                         <tr>
+                              <th scope="row"><a href="">Bioinformatics 1</a></th>
+                              <td>3 Months</td>
+                              <td>
+                                   January - March <br>
+                                   April - June <br>
+                                   July - September <br>
+                                   October - December <br>
+
+                              </td>
+
+                         </tr>
+
+
+
+                         <tr>
+                              <th scope="row"><a href="">NextGen Sequencing (NGS) Data Analysis</a></th>
+                              <td>10 days</td>
+                              <td>Every 2nd and 3rd weeks of the month</td>
+
+                         </tr>
+
+
+
+                         <tr>
+                              <th scope="row"><a href="">Metagenomics</a></th>
+                              <td>8 days</td>
+                              <td>1st Week of every month</td>
+                         </tr>
+
+
+                         <tr>
+                              <th scope="row"><a href="">Metabolomics</a></th>
+                              <td>5 days</td>
+                              <td>The 4th Week of every month</td>
+                         </tr>
+
+
+                         <tr>
+                              <th scope="row"><a href="">Computer Aided Drug Design</a></th>
+                              <td>10 days</td>
+                              <td>Every first 2 Weeks of the month</td>
+                         </tr>
+
+
+                         <tr>
+                              <th scope="row"><a href="">Designing Point of Care Diagnostics use of CRISPR- Cas
+                                        System</a></th>
+                              <td>5 days</td>
+                              <td>The 3rd Week of every month</td>
+                         </tr>
+
+
+                         <tr>
+                              <th scope="row"><a href="">Genome Editing using CRISPR-Cas</a></th>
+                              <td>5 days</td>
+                              <td>The 4th Week of every month</td>
+                         </tr>
+
+
+                         <tr>
+                              <th scope="row"><a href="">PCR bootcamp</a></th>
+                              <td>5 days</td>
+                              <td>The 1st Week of every month</td>
+                         </tr>
+
+
+                         <tr>
+                              <th scope="row"><a href="">Python Programming for Bio Scientists</a></th>
+                              <td>2 months</td>
+                              <td>
+                                   January - February <br>
+                                   March - April <br>
+                                   May - June <br>
+                                   July - August <br>
+                                   September - October <br>
+                                   November - December <br>
+
+                              </td>
+                         </tr>
+
+
+                         <tr>
+                              <th scope="row"><a href="">Techniques in Nanopore DNA/RNA sequencing of Data Analysis</a>
+                              </th>
+                              <td>7 days</td>
+                              <td>The 3rd Week of every month</td>
+                         </tr>
+
                     </tbody>
-                  </table>
+
+
+               </table>
 
           </section>
 
