@@ -1,0 +1,528 @@
+/* OUR CUSTOM STUFF */
+jQuery(document).ready(function($){
+	
+	// Change text of Google Ratings badge
+	$( 'div.rplg[data-id="47205"] .rplg-badge2-score .rplg-biz-based-text' ).text( 'Based on 300+ reviews' );
+	
+	/* If Gravity Form text area has .js-elasticArea class, then help it auto grow its height based on lines */
+	$('#contact-us-content .js-elasticArea textarea, #interior-banner .js-elasticArea textarea').each(function(index, element) {
+		var elasticElement = element,
+			$elasticElement = $(element),
+			initialHeight = initialHeight || $elasticElement.height(),
+			delta = parseInt( $elasticElement.css('paddingBottom') ) + parseInt( $elasticElement.css('paddingTop') ) || 0,
+			resize = function() {
+				$elasticElement.height(initialHeight);
+				$elasticElement.height( elasticElement.scrollHeight - delta );
+			};
+		$elasticElement.on('input change keyup', resize);
+		resize();
+	});
+	
+	// Google Ads conversion tracking when Contact Form is successfully submitted
+	$(document).on('gform_confirmation_loaded', function(event, formId){
+		if(formId == 6) {
+			// Event snippet to log Google Ads conversion of Contact Form
+			gtag('event', 'conversion', {'send_to': 'AW-1035889218/tgEDCMLj944DEMLU-e0D'});
+		}
+		if(formId == 57) {
+			// Event snippet to log Google Ads conversion of Sell My WordPress Agency
+			gtag('event', 'conversion', {'send_to': 'AW-1035889218/tgEDCMLj944DEMLU-e0D'});
+		}
+	});
+	
+	// Get device type on certain forms and set the hidden field value with it
+	const gform_6_found = document.getElementById('gform_6');
+	const gform_57_found = document.getElementById('gform_57');
+	if(gform_6_found || gform_57_found) {
+		// trigger on form submit
+		console.log('Desired form found');
+		gform.utils.addAsyncFilter('gform/submission/pre_submission', async (data) => {
+			console.log('Form submit event triggered');
+			// get the Form ID from the GF data
+			const formId = data.form.dataset.formid;
+			// get device type
+			const detectDeviceType = () =>
+				/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+					navigator.userAgent
+				)
+					? 'Mobile'
+					: 'Desktop';
+			// set device type as value on this field
+			if (formId == '6') {
+				document.getElementById('input_6_19').value = detectDeviceType();
+				console.log('Form 6 device type set to:', detectDeviceType());
+				return data;
+			}
+			if (formId == '57') {
+				document.getElementById('input_57_19').value = detectDeviceType();
+				console.log('Form 57 device type set to:', detectDeviceType());
+				return data;
+			}
+			else {
+				console.log('Not any of the forms, but we got this far somehow');
+				return data;
+			}
+		});
+	}
+	
+});
+
+// constant to use later on
+const gform_6_exists = document.getElementById('gform_6');
+// only continue if we found the Contact Form
+if(gform_6_exists) {
+	// trigger when it renders (form load, during errors, during confirmation, etc.)
+	jQuery(document).on('gform_post_render', function(){
+		// get GA4 Client ID when using gtag
+		gtag('get', 'G-HG103SYET0', 'client_id', function(clientId) {
+			// log to the console for testing
+			// console.log(clientId);
+			// set Client ID on this field
+			document.getElementById('input_6_6').value = clientId;
+		});
+	});
+}
+
+// keep an eye on this form ID (Support Request) and trigger on form render
+const gform_7_exists = document.getElementById('gform_7');
+if(gform_7_exists) {
+	// trigger when it renders (form load, during errors, during confirmation, etc.)
+	jQuery(document).on('gform_post_render', function(){
+		// get GA4 Client ID when using gtag
+		gtag('get', 'G-HG103SYET0', 'client_id', function(clientId) {
+			// log to the console for testing
+			// console.log(clientId);
+			// set Client ID on this field
+			document.getElementById('input_7_22').value = clientId;
+		});
+	});
+}
+
+// constant to use later on
+const gform_57_exists = document.getElementById('gform_57');
+// only continue if we found the Sell My WordPress Agency Form
+if(gform_57_exists) {
+	// trigger when it renders (form load, during errors, during confirmation, etc.)
+	jQuery(document).on('gform_post_render', function(){
+		// get GA4 Client ID when using gtag
+		gtag('get', 'G-HG103SYET0', 'client_id', function(clientId) {
+			// log to the console for testing
+			// console.log(clientId);
+			// set Client ID on this field
+			document.getElementById('input_57_6').value = clientId;
+		});
+	});
+	// trigger on form submit
+	gform_57_exists.addEventListener('submit', function(event) {
+		// get device type
+		const detectDeviceType = () =>
+		/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+			navigator.userAgent
+		)
+		? 'Mobile'
+		: 'Desktop';
+		// set device type as value on this field
+		document.getElementById('input_57_19').value = detectDeviceType();
+	});
+}
+
+
+// get GCLID and store it, then capture it on certain form fields
+
+// get parameters of URL
+function getParam(p) {
+	var match = RegExp('[?&]' + p + '=([^&]*)').exec(window.location.search);
+	return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+// set expiration date
+function getExpiryRecord(value) {
+	var expiryPeriod = 90 * 24 * 60 * 60 * 1000; // 90 day expiry in milliseconds
+
+	var expiryDate = new Date().getTime() + expiryPeriod;
+	return {
+		value: value,
+		expiryDate: expiryDate
+	};
+}
+// get desired param (gclid), specify the form field id to add it to, add it to local storage, and set the value in the form field
+function addGclid() {
+	var gclidParam = getParam('gclid'); // what param to get
+	var gclidFormFields = ['input_6_16','input_57_16']; // all possible gclid form field ids here, e.g., ['gclid_field', 'foobar']
+	var gclidRecord = null;
+	var currGclidFormField;
+
+	var gclsrcParam = getParam('gclsrc'); //gclsrc param indicates the source of the click ID, but can also be empty
+	var isGclsrcValid = !gclsrcParam || gclsrcParam.indexOf('aw') !== -1;
+
+	gclidFormFields.forEach(function (field) {
+		if (document.getElementById(field)) {
+			currGclidFormField = document.getElementById(field);
+		}
+	});
+
+	if (gclidParam && isGclsrcValid) {
+		gclidRecord = getExpiryRecord(gclidParam);
+		localStorage.setItem('gclid', JSON.stringify(gclidRecord));
+	}
+
+	var gclid = gclidRecord || JSON.parse(localStorage.getItem('gclid'));
+	var isGclidValid = gclid && new Date().getTime() < gclid.expiryDate;
+
+	if (currGclidFormField && isGclidValid) {
+		currGclidFormField.value = gclid.value;
+	}
+}
+window.addEventListener('load', addGclid);
+
+// get desired param (device), which we set via the Google Ads ValueTrack parameters, then specify the form field id to add it to, add it to local storage, and set the value in the form field
+function addAdsDevice() {
+	var adsDeviceParam = getParam('device'); // what param to get
+	var adsDeviceFormFields = ['input_6_21','input_57_21']; // form field to put the param value
+	var adsDeviceRecord = null; // set the local storage record as null to start
+	var currAdsDeviceFormField;
+
+	// for each input field  we specified
+	adsDeviceFormFields.forEach(function (field) {
+		if (document.getElementById(field)) {
+			currAdsDeviceFormField = document.getElementById(field); // get the desired input field(s)
+		}
+	});
+
+	// if the parameter existed
+	if (adsDeviceParam) {
+		adsDeviceRecord = getExpiryRecord(adsDeviceParam); // get the desired expiration date that we specified in our previous function
+		localStorage.setItem('device', JSON.stringify(adsDeviceRecord)); // set the local storage item with the name and value, with the desired expiration date
+	}
+
+	var device = adsDeviceRecord || JSON.parse(localStorage.getItem('device')); // the value we found or was previously set
+	var isAdsDeviceValid = device && new Date().getTime() < device.expiryDate; // variable if param value existed and had a date set previously
+
+	// if we found the form input to add to, and there was a valid param value to send
+	if (currAdsDeviceFormField && isAdsDeviceValid) {
+		currAdsDeviceFormField.value = device.value; // set the form input value
+	}
+	
+}
+window.addEventListener('load', addAdsDevice);
+
+// get desired param (matchtype), which we set via the Google Ads ValueTrack parameters, then specify the form field id to add it to, add it to local storage, and set the value in the form field
+function addAdsMatchtype() {
+	var adsMatchtypeParam = getParam('matchtype'); // what param to get
+	var adsMatchtypeFormFields = ['input_6_24','input_57_24']; // form field to put the param value
+	var adsMatchtypeRecord = null; // set the local storage record as null to start
+	var currAdsMatchtypeFormField;
+
+	// for each input field  we specified
+	adsMatchtypeFormFields.forEach(function (field) {
+		if (document.getElementById(field)) {
+			currAdsMatchtypeFormField = document.getElementById(field); // get the desired input field(s)
+		}
+	});
+
+	// if the parameter existed
+	if (adsMatchtypeParam) {
+		adsMatchtypeRecord = getExpiryRecord(adsMatchtypeParam); // get the desired expiration date that we specified in our previous function
+		localStorage.setItem('matchtype', JSON.stringify(adsMatchtypeRecord)); // set the local storage item with the name and value, with the desired expiration date
+	}
+
+	var matchtype = adsMatchtypeRecord || JSON.parse(localStorage.getItem('matchtype')); // the value we found or was previously set
+	var isAdsMatchtypeValid = matchtype && new Date().getTime() < matchtype.expiryDate; // variable if param value existed and had a date set previously
+
+	// if we found the form input to add to, and there was a valid param value to send
+	if (currAdsMatchtypeFormField && isAdsMatchtypeValid) {
+		currAdsMatchtypeFormField.value = matchtype.value; // set the form input value
+	}
+	
+}
+window.addEventListener('load', addAdsMatchtype);
+
+// FILTERS - Portfolio and team page
+// in css search for "FILTER BY SERVICES" for the styles
+
+// Portfolio page - filter by services toggle
+jQuery(document).ready(function() {
+    function hideAllSections() {
+        jQuery('#all-services').hide();
+        jQuery('#comprehensive-audit').hide();
+        jQuery('#ecommerce').hide();
+		jQuery('#infrastructure-cleanup').hide();
+		jQuery('#migration').hide();
+		jQuery('#project-work').hide();
+		jQuery('#ongoing-support').hide();
+		jQuery('#retained-services').hide();
+		jQuery('#seo').hide();
+		jQuery('#speed-optimization').hide();
+		jQuery('#website-architecture').hide();
+		jQuery('#website-design').hide();
+		jQuery('#website-development').hide();
+		jQuery('#website-infrastructure-optimization').hide();
+        // Add more sections here if necessary
+    }
+    
+    function scrollToSection(sectionId) {
+        jQuery('html, body').animate({
+            scrollTop: jQuery(sectionId).offset().top
+        }, 500); // Adjust the duration as needed
+    }
+
+    jQuery('#menu-item-80723 a').on('click', function(event) {        
+        event.preventDefault();
+        hideAllSections();
+        jQuery('#all-services').toggle('show', function() {
+            if (jQuery(this).is(':visible')) {
+                scrollToSection('#all-services');
+            }
+        });
+    });
+    
+    jQuery('#menu-item-80724 a').on('click', function(event) {        
+        event.preventDefault();
+        hideAllSections();
+        jQuery('#comprehensive-audit').toggle('show', function() {
+            if (jQuery(this).is(':visible')) {
+                scrollToSection('#comprehensive-audit');
+            }
+        });
+    });
+    
+    jQuery('#menu-item-80741 a').on('click', function(event) {        
+        event.preventDefault();
+        hideAllSections();
+        jQuery('#ecommerce').toggle('show', function() {
+            if (jQuery(this).is(':visible')) {
+                scrollToSection('#ecommerce');
+            }
+        });
+    });
+	
+    jQuery('#menu-item-80725 a').on('click', function(event) {        
+        event.preventDefault();
+        hideAllSections();
+        jQuery('#infrastructure-cleanup').toggle('show', function() {
+            if (jQuery(this).is(':visible')) {
+                scrollToSection('#infrastructure-cleanup');
+            }
+        });
+    });
+	
+	jQuery('#menu-item-80733 a').on('click', function(event) {        
+        event.preventDefault();
+        hideAllSections();
+        jQuery('#migration').toggle('show', function() {
+            if (jQuery(this).is(':visible')) {
+                scrollToSection('#migration');
+            }
+        });
+    });
+	
+	jQuery('#menu-item-80734 a').on('click', function(event) {        
+        event.preventDefault();
+        hideAllSections();
+        jQuery('#project-work').toggle('show', function() {
+            if (jQuery(this).is(':visible')) {
+                scrollToSection('#project-work');
+            }
+        });
+    });
+	
+	jQuery('#menu-item-80735 a').on('click', function(event) {        
+        event.preventDefault();
+        hideAllSections();
+        jQuery('#ongoing-support').toggle('show', function() {
+            if (jQuery(this).is(':visible')) {
+                scrollToSection('#ongoing-support');
+            }
+        });
+    });
+	
+	jQuery('#menu-item-80732 a').on('click', function(event) {        
+        event.preventDefault();
+        hideAllSections();
+        jQuery('#retained-services').toggle('show', function() {
+            if (jQuery(this).is(':visible')) {
+                scrollToSection('#retained-services');
+            }
+        });
+    });
+	
+	jQuery('#menu-item-80736 a').on('click', function(event) {        
+        event.preventDefault();
+        hideAllSections();
+        jQuery('#seo').toggle('show', function() {
+            if (jQuery(this).is(':visible')) {
+                scrollToSection('#seo');
+            }
+        });
+    });
+	
+	jQuery('#menu-item-80739 a').on('click', function(event) {        
+        event.preventDefault();
+        hideAllSections();
+        jQuery('#speed-optimization').toggle('show', function() {
+            if (jQuery(this).is(':visible')) {
+                scrollToSection('#speed-optimization');
+            }
+        });
+    });
+	
+	jQuery('#menu-item-80737 a').on('click', function(event) {        
+        event.preventDefault();
+        hideAllSections();
+        jQuery('#website-architecture').toggle('show', function() {
+            if (jQuery(this).is(':visible')) {
+                scrollToSection('#website-architecture');
+            }
+        });
+	});
+		
+	jQuery('#menu-item-80738 a').on('click', function(event) {        
+        event.preventDefault();
+        hideAllSections();
+        jQuery('#website-design').toggle('show', function() {
+            if (jQuery(this).is(':visible')) {
+                scrollToSection('#website-design');
+            }
+        });
+    });
+	
+	jQuery('#menu-item-80745 a').on('click', function(event) {        
+        event.preventDefault();
+        hideAllSections();
+        jQuery('#website-development').toggle('show', function() {
+            if (jQuery(this).is(':visible')) {
+                scrollToSection('#website-development');
+            }
+        });
+    });
+	
+	jQuery('#menu-item-80740 a').on('click', function(event) {        
+        event.preventDefault();
+        hideAllSections();
+        jQuery('#website-infrastructure-optimization').toggle('show', function() {
+            if (jQuery(this).is(':visible')) {
+                scrollToSection('#website-infrastructure-optimization');
+            }
+        });
+    });
+});
+
+// TEAM PAGE
+// Toggle team bio in popups
+jQuery(document).ready(function(){
+    jQuery('.hideshow').on('click', function(event) {        
+        event.preventDefault();
+        jQuery('.team-profile-content-bio').toggle('show');
+    });
+});
+
+// Filter by dept toggle
+jQuery(document).ready(function() {
+    function hideAllSections() {
+        jQuery('#all-departments').hide();
+		jQuery('#account-management').hide();
+        jQuery('#administrative').hide();
+		jQuery('#content').hide();
+		jQuery('#customer-success').hide();
+		jQuery('#development').hide();
+		jQuery('#leadership').hide();
+		jQuery('#project-management').hide();
+		jQuery('#support').hide();
+    }
+    
+    function scrollToSection(sectionId) {
+        jQuery('html, body').animate({
+            scrollTop: jQuery(sectionId).offset().top
+        }, 500); // Adjust the duration as needed
+    }
+
+    jQuery('#menu-item-80816 a').on('click', function(event) {        
+        event.preventDefault();
+        hideAllSections();
+        jQuery('#all-departments').toggle('show', function() {
+            if (jQuery(this).is(':visible')) {
+                scrollToSection('#all-departments');
+            }
+        });
+    });
+    
+    jQuery('#menu-item-84839 a').on('click', function(event) {        
+        event.preventDefault();
+        hideAllSections();
+        jQuery('#account-management').toggle('show', function() {
+            if (jQuery(this).is(':visible')) {
+                scrollToSection('#account-management');
+            }
+        });
+    });
+	
+    jQuery('#menu-item-80817 a').on('click', function(event) {        
+        event.preventDefault();
+        hideAllSections();
+        jQuery('#administrative').toggle('show', function() {
+            if (jQuery(this).is(':visible')) {
+                scrollToSection('#administrative');
+            }
+        });
+    });
+    
+    jQuery('#menu-item-80818 a').on('click', function(event) {        
+        event.preventDefault();
+        hideAllSections();
+        jQuery('#content').toggle('show', function() {
+            if (jQuery(this).is(':visible')) {
+                scrollToSection('#content');
+            }
+        });
+    });
+	
+    jQuery('#menu-item-80819 a').on('click', function(event) {        
+        event.preventDefault();
+        hideAllSections();
+        jQuery('#customer-success').toggle('show', function() {
+            if (jQuery(this).is(':visible')) {
+                scrollToSection('#customer-success');
+            }
+        });
+    });
+	
+	jQuery('#menu-item-80820 a').on('click', function(event) {        
+        event.preventDefault();
+        hideAllSections();
+        jQuery('#development').toggle('show', function() {
+            if (jQuery(this).is(':visible')) {
+                scrollToSection('#development');
+            }
+        });
+    });
+	
+	jQuery('#menu-item-80821 a').on('click', function(event) {        
+        event.preventDefault();
+        hideAllSections();
+        jQuery('#leadership').toggle('show', function() {
+            if (jQuery(this).is(':visible')) {
+                scrollToSection('#leadership');
+            }
+        });
+    });
+	
+	jQuery('#menu-item-80822 a').on('click', function(event) {        
+        event.preventDefault();
+        hideAllSections();
+        jQuery('#project-management').toggle('show', function() {
+            if (jQuery(this).is(':visible')) {
+                scrollToSection('#project-management');
+            }
+        });
+    });
+	
+	jQuery('#menu-item-80823 a').on('click', function(event) {        
+        event.preventDefault();
+        hideAllSections();
+        jQuery('#support').toggle('show', function() {
+            if (jQuery(this).is(':visible')) {
+                scrollToSection('#support');
+            }
+        });
+    });
+	
+});
