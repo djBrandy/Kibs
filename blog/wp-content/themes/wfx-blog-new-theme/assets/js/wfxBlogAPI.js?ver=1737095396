@@ -1,0 +1,1138 @@
+// console.log("Whatfix API JS loading");
+
+// Form Validation JS Starts
+("use strict");
+let SSOLOGIN = "SSO login is required";
+let ssoLogin = document.getElementById("sso-login-button");
+let EID_COOKIE = "eid";
+let POST = "POST";
+const excludedDom = [
+	"gmail",
+	"yahoo",
+	"hotmail",
+	"outlook",
+	"msn",
+	"live",
+	"qq",
+	"aol",
+	"me",
+	"icloud",
+	"rediffmail",
+	"comcast",
+	"ymail",
+	"email",
+	"bugcrowdninja",
+	"yopmail",
+];
+const country_name_code = {
+	AD: "Andorra",
+	AE: "United Arab Emirates",
+	AF: "Afghanistan",
+	AG: "Antigua and Barbuda",
+	AI: "Anguilla",
+	AL: "Albania",
+	AM: "Armenia",
+	AO: "Angola",
+	AQ: "Antarctica",
+	AR: "Argentina",
+	AS: "American Samoa",
+	AT: "Austria",
+	AU: "Australia",
+	AW: "Aruba",
+	AX: "&Aring;land Islands",
+	AZ: "Azerbaijan",
+	BA: "Bosnia and Herzegovina",
+	BB: "Barbados",
+	BD: "Bangladesh",
+	BE: "Belgium",
+	BF: "Burkina Faso",
+	BG: "Bulgaria",
+	BH: "Bahrain",
+	BI: "Burundi",
+	BJ: "Benin",
+	BL: "Saint Barth&eacute;lemy",
+	BM: "Bermuda",
+	BN: "Brunei Darussalam",
+	BO: "Bolivia, Plurinational State of",
+	BQ: "Bonaire, Sint Eustatius and Saba",
+	BR: "Brazil",
+	BS: "Bahamas",
+	BT: "Bhutan",
+	BV: "Bouvet Island",
+	BW: "Botswana",
+	BY: "Belarus",
+	BZ: "Belize",
+	CA: "Canada",
+	CC: "Cocos (Keeling) Islands",
+	CD: "Congo, the Democratic Republic of the",
+	CF: "Central African Republic",
+	CG: "Congo",
+	CH: "Switzerland",
+	CI: "C&ocirc;te d'Ivoire",
+	CK: "Cook Islands",
+	CL: "Chile",
+	CM: "Cameroon",
+	CN: "China",
+	CO: "Colombia",
+	CR: "Costa Rica",
+	CU: "Cuba",
+	CV: "Cape Verde",
+	CW: "Cura&ccedil;ao",
+	CX: "Christmas Island",
+	CY: "Cyprus",
+	CZ: "Czech Republic",
+	DE: "Germany",
+	DJ: "Djibouti",
+	DK: "Denmark",
+	DM: "Dominica",
+	DO: "Dominican Republic",
+	DZ: "Algeria",
+	EC: "Ecuador",
+	EE: "Estonia",
+	EG: "Egypt",
+	EH: "Western Sahara",
+	ER: "Eritrea",
+	ES: "Spain",
+	ET: "Ethiopia",
+	FI: "Finland",
+	FJ: "Fiji",
+	FK: "Falkland Islands (Malvinas)",
+	FM: "Micronesia, Federated States of",
+	FO: "Faroe Islands",
+	FR: "France",
+	GA: "Gabon",
+	GB: "United Kingdom",
+	GD: "Grenada",
+	GE: "Georgia",
+	GF: "French Guiana",
+	GG: "Guernsey",
+	GH: "Ghana",
+	GI: "Gibraltar",
+	GL: "Greenland",
+	GM: "Gambia",
+	GN: "Guinea",
+	GP: "Guadeloupe",
+	GQ: "Equatorial Guinea",
+	GR: "Greece",
+	GS: "South Georgia and the South Sandwich Islands",
+	GT: "Guatemala",
+	GU: "Guam",
+	GW: "Guinea-Bissau",
+	GY: "Guyana",
+	HK: "Hong Kong",
+	HM: "Heard Island and McDonald Islands",
+	HN: "Honduras",
+	HR: "Croatia",
+	HT: "Haiti",
+	HU: "Hungary",
+	ID: "Indonesia",
+	IE: "Ireland",
+	IL: "Israel",
+	IM: "Isle of Man",
+	IN: "India",
+	IO: "British Indian Ocean Territory",
+	IQ: "Iraq",
+	IR: "Iran, Islamic Republic of",
+	IS: "Iceland",
+	IT: "Italy",
+	JE: "Jersey",
+	JM: "Jamaica",
+	JO: "Jordan",
+	JP: "Japan",
+	KE: "Kenya",
+	KG: "Kyrgyzstan",
+	KH: "Cambodia",
+	KI: "Kiribati",
+	KM: "Comoros",
+	KN: "Saint Kitts and Nevis",
+	KP: "Korea, Democratic People's Republic of",
+	KR: "Korea, Republic of",
+	KW: "Kuwait",
+	KY: "Cayman Islands",
+	KZ: "Kazakhstan",
+	LA: "Lao People's Democratic Republic",
+	LB: "Lebanon",
+	LC: "Saint Lucia",
+	LI: "Liechtenstein",
+	LK: "Sri Lanka",
+	LR: "Liberia",
+	LS: "Lesotho",
+	LT: "Lithuania",
+	LU: "Luxembourg",
+	LV: "Latvia",
+	LY: "Libya",
+	MA: "Morocco",
+	MC: "Monaco",
+	MD: "Moldova, Republic of",
+	ME: "Montenegro",
+	MF: "Saint Martin (French part)",
+	MG: "Madagascar",
+	MH: "Marshall Islands",
+	MK: "Macedonia, the Former Yugoslav Republic of",
+	ML: "Mali",
+	MM: "Myanmar",
+	MN: "Mongolia",
+	MO: "Macao",
+	MP: "Northern Mariana Islands",
+	MQ: "Martinique",
+	MR: "Mauritania",
+	MS: "Montserrat",
+	MT: "Malta",
+	MU: "Mauritius",
+	MV: "Maldives",
+	MW: "Malawi",
+	MX: "Mexico",
+	MY: "Malaysia",
+	MZ: "Mozambique",
+	NA: "Namibia",
+	NC: "New Caledonia",
+	NE: "Niger",
+	NF: "Norfolk Island",
+	NG: "Nigeria",
+	NI: "Nicaragua",
+	NL: "Netherlands",
+	NO: "Norway",
+	NP: "Nepal",
+	NR: "Nauru",
+	NU: "Niue",
+	NZ: "New Zealand",
+	OM: "Oman",
+	PA: "Panama",
+	PE: "Peru",
+	PF: "French Polynesia",
+	PG: "Papua New Guinea",
+	PH: "Philippines",
+	PK: "Pakistan",
+	PL: "Poland",
+	PM: "Saint Pierre and Miquelon",
+	PN: "Pitcairn",
+	PR: "Puerto Rico",
+	PS: "Palestine, State of",
+	PT: "Portugal",
+	PW: "Palau",
+	PY: "Paraguay",
+	QA: "Qatar",
+	RE: "R&eacute;union",
+	RO: "Romania",
+	RS: "Serbia",
+	RU: "Russian Federation",
+	RW: "Rwanda",
+	SA: "Saudi Arabia",
+	SB: "Solomon Islands",
+	SC: "Seychelles",
+	SD: "Sudan",
+	SE: "Sweden",
+	SG: "Singapore",
+	SH: "Saint Helena, Ascension and Tristan da Cunha",
+	SI: "Slovenia",
+	SJ: "Svalbard and Jan Mayen",
+	SK: "Slovakia",
+	SL: "Sierra Leone",
+	SM: "San Marino",
+	SN: "Senegal",
+	SO: "Somalia",
+	SR: "Suriname",
+	SS: "South Sudan",
+	ST: "Sao Tome and Principe",
+	SV: "El Salvador",
+	SX: "Sint Maarten (Dutch part)",
+	SY: "Syrian Arab Republic",
+	SZ: "Swaziland",
+	TC: "Turks and Caicos Islands",
+	TD: "Chad",
+	TF: "French Southern Territories",
+	TG: "Togo",
+	TH: "Thailand",
+	TJ: "Tajikistan",
+	TK: "Tokelau",
+	TL: "Timor-Leste",
+	TM: "Turkmenistan",
+	TN: "Tunisia",
+	TO: "Tonga",
+	TR: "Turkey",
+	TT: "Trinidad and Tobago",
+	TV: "Tuvalu",
+	TW: "Taiwan, Province of China",
+	TZ: "Tanzania, United Republic of",
+	UA: "Ukraine",
+	UG: "Uganda",
+	UM: "United States Minor Outlying Islands",
+	US: "United States",
+	UY: "Uruguay",
+	UZ: "Uzbekistan",
+	VA: "Holy See (Vatican City State)",
+	VC: "Saint Vincent and the Grenadines",
+	VE: "Venezuela, Bolivarian Republic of",
+	VG: "Virgin Islands, British",
+	VI: "Virgin Islands, U.S.",
+	VN: "Vietnam",
+	VU: "Vanuatu",
+	WF: "Wallis and Futuna",
+	WS: "Samoa",
+	YE: "Yemen",
+	YT: "Mayotte",
+	ZA: "South Africa",
+	ZM: "Zambia",
+	ZW: "Zimbabwe",
+};
+let clientIP = { city: " ", country: " ", ip: " ", region: " " };
+const emailRegex = /^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$/;
+const phoneRegex = /^[+]{0,1}\d+$/;
+const validTextRegex = /^[A-Za-z0-9 ]+$/;
+
+function setCookie(cname, cvalue, exdays) {
+	const d = new Date();
+	d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+	let expires = "expires=" + d.toUTCString();
+	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+	let ca = document.cookie.split(";");
+	for (let i = 0; i < ca.length; i++) {
+		let c = ca[i].split("=");
+		let cc = c[0].trim();
+		if (String(cc) === String(cname)) {
+			return c[1];
+		}
+	}
+	return null;
+}
+
+function getVisitorID() {
+	const VisitorID = document.cookie.match(
+		new RegExp("(^| )" + "visitor_id" + "[0-9]*=(?<value>[^;]+)")
+	);
+	if (VisitorID !== null) {
+		return VisitorID.groups.value;
+	}
+	return "";
+}
+function getVisitorIdHash() {
+	const VisitorIdHash = document.cookie.match(
+		new RegExp("(^| )" + "visitor_id" + "[0-9]*-hash=(?<value>[^;]+)")
+	);
+	if (VisitorIdHash !== null) {
+		return VisitorIdHash.groups.value;
+	}
+	return "";
+}
+function checkCookie(cname) {
+	if (getCookie(cname) !== null) return true;
+	else return false;
+}
+
+function callClientIP() {
+	fetch("https://ipinfo.io/json?token=8d5b783948a936")
+		.then((response) => response.json())
+		.then((jsonResponse) => {
+			//   jQuery("#Country_IP").val(
+			//     country_name_code[jsonResponse.country.toUpperCase()]
+			//   );
+			//   jQuery("#State_IP").val(jsonResponse.region);
+			//   jQuery("#City_IP").val(jsonResponse.city);
+			jQuery("input[name=Country_IP]").val(
+				country_name_code[jsonResponse.country.toUpperCase()]
+			);
+			jQuery("input[name=State_IP]").val(jsonResponse.region);
+			jQuery("input[name=City_IP]").val(jsonResponse.city);
+			if (jQuery("input[data-name=Country_IP]").length > 0) {
+				jQuery("input[data-name=Country_IP]").val(
+					country_name_code[jsonResponse.country.toUpperCase()]
+				);
+				jQuery("input[data-name=State_IP]").val(jsonResponse.region);
+				jQuery("input[data-name=City_IP]").val(jsonResponse.city);
+			} else {
+				jQuery("input[data-geo]").val(
+					window.location.href +
+						`{'country':'${
+							country_name_code[jsonResponse.country.toUpperCase()]
+						}','state':'${jsonResponse.region}','city':'${jsonResponse.city}'}`
+				);
+			}
+			clientIP = { ...clientIP, ...jsonResponse };
+		});
+
+	// const request = await fetch("https://ipinfo.io/json?token=8c95cf467a8fb9")
+	// const json = await request.json()
+	// clientIP = {...clientIP, ...json };
+	// console.log(clientIP);
+}
+function getClientIP() {
+	return clientIP;
+}
+function getUserAgent() {
+	const Mobi = "Mobi";
+	var ua = navigator.userAgent;
+	if (ua.includes(Mobi)) {
+		return "Mobile";
+	} else {
+		return "Desktop";
+	}
+}
+
+function isNotEmpty(input) {
+	if (input.type === "checkbox") {
+		if (!input.checked) {
+			addErrMsg(input.parentElement, {
+				msg: "Please select this option",
+			});
+			return false;
+		}
+		removeErrMsg(input.parentElement);
+		return true;
+	} else if (input.value.length <= 0) {
+		addErrMsg(input);
+		return false;
+	} else if (!validTextRegex.test(input.value)) {
+		addErrMsg(input, { msg: `Please enter a valid ${input.name}` });
+		return false;
+	} else {
+		removeErrMsg(input);
+		return true;
+	}
+}
+function isValidText(input) {
+	let value = input.value;
+	if (value.length <= 0) {
+		addErrMsg(input, { msg: "This field is required." });
+		return false;
+	} else if (!validTextRegex.test(input.value)) {
+		addErrMsg(input, { msg: `Please enter a valid ${input.name}` });
+		return false;
+	} else {
+		removeErrMsg(input);
+		return true;
+	}
+}
+
+function isValidPhone(input) {
+	let value = input.value;
+	if (value.length <= 0) {
+		addErrMsg(input, { msg: "This field is required." });
+		return false;
+	} else {
+		if (phoneRegex.test(value)) {
+			removeErrMsg(input);
+			return true;
+		} else {
+			addErrMsg(input, { msg: "Please enter a valid Phone Number." });
+			return false;
+		}
+	}
+}
+function isValidEmail(input) {
+	let value = input.value;
+	if (value.length <= 0) {
+		addErrMsg(input, { msg: "This field is required." });
+		return false;
+	} else {
+		if (emailRegex.test(value)) {
+			if (
+				excludedDom.includes(value.split("@")[1].split(".")[0].toLowerCase())
+			) {
+				addErrMsg(input, { msg: "Please enter your corporate email address" });
+				return false;
+			} else {
+				removeErrMsg(input);
+				return true;
+			}
+		} else {
+			addErrMsg(input, { msg: "Please enter a valid email address" });
+			return false;
+		}
+	}
+}
+
+function addErrMsg(input, options) {
+	let defaults = {
+		msg: "",
+	};
+	defaults = { ...defaults, ...options };
+	const parent = input.parentElement;
+	const Childrens = input.parentElement.children;
+	for (let i = 0; i < Childrens.length; i++) {
+		let errChild = Childrens[i];
+		if (errChild.className.includes("errMsg")) {
+			defaults.msg !== "" ? (errChild.innerHTML = defaults.msg) : "";
+		}
+	}
+	parent.classList.add("error");
+}
+function removeErrMsg(input) {
+	const parent = input.parentElement;
+	parent.classList.remove("error");
+}
+function fieldCheckerOC(e) {
+	const inputF = e.srcElement;
+	const inputN = inputF.name;
+	const type = inputF.type;
+	if (
+		(type === "text") &
+		(inputN.includes("Phone") || inputN.includes("phone"))
+	) {
+		isValidPhone(inputF);
+	} else if (type === "text") {
+		isValidText(inputF);
+	} else if (type === "email") {
+		isValidEmail(inputF);
+	} else {
+		isNotEmpty(inputF);
+	}
+}
+function fieldChecker(inputF) {
+	const inputN = inputF.name;
+	const type = inputF.type;
+	if (inputN === "Honeypot Test" && type === "text") {
+		if (inputF.value === "") return true;
+		else return false;
+	}
+	if (
+		(type === "text") &
+		(inputN.includes("Phone") || inputN.includes("phone"))
+	) {
+		return isValidPhone(inputF);
+	} else if (type === "text") {
+		return isValidText(inputF);
+	} else if (type === "email") {
+		return isValidEmail(inputF);
+	} else if (type === "hidden") {
+		switch (inputF.name) {
+			case "ConvertingPageURL":
+				inputF.value = window.location.href ? window.location.href : " ";
+				break;
+			case "Converting Page URL":
+				inputF.value = window.location.href ? window.location.href : " ";
+				break;
+			case "ReferringPageURL":
+				inputF.value = document.referrer ? document.referrer : " ";
+				break;
+			case "Referring Page URL":
+				inputF.value = document.referrer ? document.referrer : " ";
+				break;
+			case "Device":
+				inputF.value = getUserAgent();
+				break;
+			case "Country_IP":
+				inputF.value === ""
+					? (inputF.value =
+							country_name_code[getClientIP().country.toUpperCase()])
+					: "";
+				break;
+			case "State_IP":
+				inputF.value === "" ? (inputF.value = getClientIP().region) : "";
+				break;
+			case "City_IP":
+				inputF.value === "" ? (inputF.value = getClientIP().city) : "";
+				break;
+		}
+		return true;
+	} else {
+		return isNotEmpty(inputF);
+	}
+}
+function validateF(event) {
+	const formD = event.target;
+	const inputE = formD.elements;
+	let verified = true;
+	let trapValue = jQuery("#Honeypot_Test").val();
+	if (trapValue !== "" && trapValue !== undefined) {
+		verified = false;
+		return verified;
+	}
+
+	for (let i = 0; i < inputE.length; i++) {
+		if (inputE[i].name !== "") {
+			let vRes = fieldChecker(inputE[i]);
+			// console.log(`${inputE[i].name}  verified value : ${vRes} `);
+			!vRes ? (verified = vRes) : "";
+			// verified = fieldChecker(inputE[i]);
+		}
+	}
+	return verified;
+}
+
+// blog subs form
+
+function validateBlogSubs(event) {
+	// request demo , trial
+	const formD = event.target;
+	const formID = formD.getAttribute("id");
+	if (validateF(event)) {
+		try {
+			const data = new FormData(formD);
+			const fValue = Object.fromEntries(data.entries());
+			jQuery("#preloader").show();
+			jQuery.ajax({
+				url: wfxBAJAX.apibase + "/addSubscription/",
+				type: "POST",
+				beforeSend: function (xhr) {
+					xhr.setRequestHeader("X-WP-Nonce", wfxBAJAX.restnonce);
+				},
+				data: {
+					formData: fValue,
+				},
+				success: function (result) {
+					blogSubsTYM;
+					jQuery("#preloader").hide();
+					jQuery("#blogSubsForm").hide();
+					jQuery("#blogSubsTYM").show();
+					console.log(result);
+					formD.reset();
+				},
+				error: function (req, status, error) {
+					jQuery("#preloader").hide();
+					//   console.log(req, status, error);
+					// alert('Something Went Wrong, Please Try Again');
+					// location.reload();
+				},
+			});
+		} catch (error) {
+			console.log("Something went wrong while submitting data", error);
+		}
+	}
+	event.preventDefault();
+}
+
+// Blog Country in Form
+if (
+	jQuery('form input[name="Country_IP"').length > 0 ||
+	jQuery('form input[data-name="Country_IP"').length > 0 ||
+	jQuery("form input[data-geo").length > 0
+) {
+	callClientIP();
+}
+
+// adding event listener to form
+
+const blogForm = document.querySelector("#blogSubsForm");
+if (blogForm !== null && blogForm.length > 0) {
+	blogForm.addEventListener("input", fieldCheckerOC);
+	blogForm.addEventListener("submit", validateBlogSubs);
+}
+// console.log(blogForm.length > 0);
+
+// Form Validation JS Ends
+
+// blog custom js
+
+const utmParams = {
+	utmSource: "blog",
+	utmMediumL: "link",
+	utmMediumB: "banner",
+	utmCampaign: window.location.pathname,
+};
+if (jQuery(".blog-post-content").length > 0) {
+	jQuery(".blog-post-content a").each(function () {
+		if (
+			this.href.indexOf("https://whatfix.com/request-") != -1 &&
+			this.href.indexOf("utm") == -1
+		) {
+			this.href =
+				this.href +
+				"?utm_source=" +
+				utmParams.utmSource +
+				"&utm_medium=" +
+				(jQuery(this).children().length === 1
+					? utmParams.utmMediumB
+					: utmParams.utmMediumL) +
+				"&utm_campaign=" +
+				utmParams.utmCampaign;
+			//   console.log(this.href);
+		}
+	});
+} else {
+	jQuery(".elementor-inner a").each(function () {
+		if (
+			this.href.indexOf("https://whatfix.com/request-") != -1 &&
+			this.href.indexOf("utm") == -1
+		) {
+			this.href =
+				this.href +
+				"?utm_source=" +
+				utmParams.utmSource +
+				"&utm_medium=" +
+				(jQuery(this).children().length === 1
+					? utmParams.utmMediumB
+					: utmParams.utmMediumL) +
+				"&utm_campaign=" +
+				utmParams.utmCampaign;
+		}
+	});
+}
+
+//Blog Newsletter JS
+if (jQuery("#blog_newsletter_outerWrap").length != 0) {
+	jQuery(document).on("submit_success", function (event, response) {
+		if (
+			response.data["1"].status === 200 &&
+			response.data["1"].form_id === "blog_newsletter_form"
+		) {
+			jQuery("#blog_newsletter_container").hide();
+			jQuery("#blog_newsletter_thankYou").show();
+		}
+	});
+}
+
+// blog newsletter page form js
+
+if (jQuery("#ref_blog_newsletter_form").length != 0) {
+	jQuery(document).on("submit_success", function (event, response) {
+		if (
+			response.data["1"].status === 200 &&
+			response.data["1"].form_id === "ref_blog_newsletter_form"
+		) {
+			jQuery("#ref_blog_newsletter_form").hide();
+			jQuery("#ref_blog_newsletter_form_thankYou").show();
+		}
+	});
+}
+
+// elementor form js  resource_download_outerWrap
+function EsetCookie(cname, cvalue, exdays) {
+	const d = new Date();
+	d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+	let expires = "expires=" + d.toUTCString();
+	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+function EgetCookie(cname) {
+	let name = cname + "=";
+	let ca = document.cookie.split(";");
+	for (let i = 0; i < ca.length; i++) {
+		let c = ca[i];
+		while (c.charAt(0) == " ") {
+			c = c.substring(1);
+		}
+		if (c.indexOf(name) == 0) {
+			return c.substring(name.length, c.length);
+		}
+	}
+	return "";
+}
+if (jQuery("#resource_download_outerWrap").length != 0) {
+	const resource_download_outer = "#resource_download_outerWrap";
+	const form_container_name = "#resource_download_container";
+	const resource_name = jQuery("form#resource_download_form").attr("name");
+	const thankyou_container_name = "#resource_download_thankYou";
+	let resource_cookie = EgetCookie(resource_name);
+	if (resource_cookie === "1") {
+		jQuery(form_container_name).hide();
+		// jQuery(thankyou_container_name).show();
+		jQuery(resource_download_outer).hide();
+	}
+	jQuery(document).on("submit_success", function (event, response) {
+		// console.log(response);
+		// console.log(event);
+		if (
+			response.data["1"].status === 200 &&
+			response.data["1"].form_id === "resource_download_form"
+		) {
+			jQuery(form_container_name).hide();
+			jQuery(thankyou_container_name).show();
+			EsetCookie(resource_name, "1");
+		}
+	});
+}
+
+if (jQuery("#resource_download_container").length != 0) {
+	// const resource_download_outer = "#resource_download_outerWrap";
+	const form_container_name = "#resource_download_container";
+	const resource_name = jQuery("form#resource_download_form").attr("name");
+	const thankyou_container_name = "#resource_download_thankYou";
+	let resource_cookie = EgetCookie(resource_name);
+	if (resource_cookie === "1") {
+		jQuery(form_container_name).hide();
+		// jQuery(thankyou_container_name).show();
+		jQuery(form_container_name).hide();
+	}
+	jQuery(document).on("submit_success", function (event, response) {
+		// console.log(response);
+		// console.log(event);
+		if (
+			response.data["1"].status === 200 &&
+			response.data["1"].form_id === "resource_download_form"
+		) {
+			jQuery(form_container_name).hide();
+			jQuery(thankyou_container_name).show();
+			EsetCookie(resource_name, "1");
+		}
+	});
+}
+
+//pricing page js ends
+
+/** ***********************Login start******************************* */
+function showLoader(show) {
+	if (show && jQuery("#login-loader").is(":hidden")) {
+		jQuery("#login-loader").toggle();
+	} else if (!show && jQuery("#login-loader").is(":visible")) {
+		jQuery("#login-loader").toggle();
+	}
+}
+
+function showMessage(show, message) {
+	if (show && jQuery("#login-output").is(":hidden")) {
+		jQuery("#login-output").empty();
+		jQuery("#login-output").append(message);
+		jQuery("#login-output").toggle();
+	} else if (!show && jQuery("#login-output").is(":visible")) {
+		jQuery("#login-output").toggle();
+	}
+}
+
+function isSuccess(response) {
+	if (typeof response === "object") {
+		if (response.result === "successful") {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	if (JSON.parse(response).result === "successful") {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function getDetail(responseText) {
+	return JSON.parse(responseText).detail;
+}
+
+function gotoEnt(details) {
+	setCookie(UID_COOKIE, details.user_id);
+	var ent_id =
+		details.pref_ent_id != null ? details.pref_ent_id : details.ent_id;
+	var account;
+
+	if (ent_id == null) {
+		account = "community";
+	} else {
+		for (i = 0; i < details.ents.length; i++) {
+			if (details.ents[i].ent_id != null && ent_id === details.ents[i].ent_id) {
+				account = details.ents[i].name;
+				break;
+			}
+		}
+	}
+	window.open("https://whatfix.com/" + account + "/", "_self");
+}
+
+function getLoginResultHandler(whatfixApi) {
+	return function () {
+		if (whatfixApi.readyState == XMLHttpRequest.DONE) {
+			showLoader(false);
+			if (whatfixApi.status == 200) {
+				if (isSuccess(whatfixApi.responseText)) {
+					gotoEnt(getDetail(whatfixApi.responseText));
+				} else {
+					if (getDetail(whatfixApi.responseText).indexOf(SSOLOGIN) >= 0) {
+						var ssoEntIdData = getDetail(whatfixApi.responseText).split("#");
+						window.location = generateSAMLUrl(ssoEntIdData[1]);
+					} else if (
+						getDetail(whatfixApi.responseText).indexOf(SERVER_ERROR) >= 0 ||
+						getDetail(whatfixApi.responseText).indexOf(INTERNAL_ERROR) >= 0
+					) {
+						showMessage(true, WENT_WRONG);
+					} else {
+						showMessage(true, getDetail(whatfixApi.responseText));
+					}
+				}
+			} else {
+				console.log("Login request Status - " + whatfixApi.status);
+			}
+		}
+	};
+}
+
+var loginUrl = "https://whatfix.com/api?service=security&action=login_any";
+
+function onLoginMenuClick(event) {
+	showMessage(false);
+	if (jQuery("#login-btn").hasClass("active")) {
+		return null;
+	}
+	var userId = getCookie(UID_COOKIE);
+	if (checkCookie(UID_COOKIE)) {
+		var whatfixApi = new XMLHttpRequest();
+		whatfixApi.onreadystatechange = getLoginResultHandler(whatfixApi);
+		whatfixApi.open(POST, loginUrl, true);
+		var parameter = {
+			service: "wf",
+			user_id: getCookie(UID_COOKIE),
+			pref_ent_id: getCookie(EID_COOKIE),
+		};
+		whatfixApi.send(JSON.stringify(parameter));
+		event.preventDefault();
+	}
+	setTimeout(function () {
+		jQuery(jQuery(jQuery("#Login-Button")[0].form.user_name)[0]).focus();
+	}, 200);
+}
+jQuery("#login-btn").click(onLoginMenuClick);
+
+function onLoginButtonClick(formInput) {
+	showMessage(false);
+	if (!jQuery(formInput).validateLoginDetails()) {
+		return;
+	}
+	var whatfixApi = new XMLHttpRequest();
+	whatfixApi.onreadystatechange = getLoginResultHandler(whatfixApi);
+	whatfixApi.open(POST, loginUrl, true);
+	var parameter = {
+		service: "wf",
+		pref_ent_id: getCookie(EID_COOKIE),
+		user_name: formInput.user_name.value,
+		password: formInput.password.value,
+	};
+	whatfixApi.send(JSON.stringify(parameter));
+	showLoader(true);
+}
+
+jQuery("#Login-Button").click(function (event) {
+	event.preventDefault();
+	onLoginButtonClick(jQuery("#Login-Button")[0].form);
+});
+
+function loginEnterHandler(e) {
+	if (e.keyCode == 13) {
+		e.preventDefault();
+		onLoginButtonClick(jQuery("#Login-Button")[0].form);
+	}
+}
+jQuery(jQuery("#login-box :input[name='user_name']")[0]).on(
+	"keypress",
+	loginEnterHandler
+);
+jQuery(jQuery("#login-box :input[name='password']")[0]).on(
+	"keypress",
+	loginEnterHandler
+);
+
+jQuery.fn.clearLoginValidation = function () {
+	return this.each(function () {
+		jQuery(this).find("span.login-required").remove();
+	});
+};
+
+jQuery.fn.validateLoginDetails = function () {
+	jQuery(this).clearLoginValidation();
+	var valid = true;
+	if (this[0].user_name.value.length === 0) {
+		var $emailElement = jQuery(jQuery(this).find("div.email-field")[0]);
+		$emailElement.prepend(
+			'<span role="alert" class="login-required">This field is required</span>'
+		);
+		jQuery(":input", $emailElement).focus(function () {
+			jQuery(".login-required", $emailElement)
+				.not(":hidden")
+				.animate(
+					{
+						opacity: 0,
+					},
+					"fast",
+					function () {
+						jQuery(this).css({
+							"z-index": -100,
+						});
+					}
+				);
+		});
+		valid = false;
+	}
+	if (this[0].password.value.length === 0) {
+		var $pwdElement = jQuery(jQuery(this).find("div.password-field")[0]);
+		$pwdElement.prepend(
+			'<span role="alert" class="login-required">This field is required</span>'
+		);
+		valid = false;
+		jQuery(":input", $pwdElement).focus(function () {
+			jQuery(".login-required", $pwdElement)
+				.not(":hidden")
+				.animate(
+					{
+						opacity: 0,
+					},
+					"fast",
+					function () {
+						jQuery(this).css({
+							"z-index": -100,
+						});
+					}
+				);
+		});
+	}
+	return valid;
+};
+function generateSAMLUrl(ssoEnt) {
+	var SAML_URL_PREFIX = "https://whatfix.com/saml_auth?service=saml&entId=";
+	var SAML_URL_SUFFIX = "&location=home";
+	return SAML_URL_PREFIX + ssoEnt + SAML_URL_SUFFIX;
+}
+/** ***********************Login end******************************* */
+
+function getParameterByName(name) {
+	url = window.location.href;
+
+	name = name.replace(/[\[\]]/g, "\\$&");
+	var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)", "i"),
+		results = regex.exec(url);
+	if (!results) {
+		url = sessionStorage.getItem("url");
+
+		if (url == null || url.length == 0) {
+			return null;
+		} else {
+			(regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)", "i")),
+				(results = regex.exec(url));
+			if (!results) return null;
+		}
+	}
+	if (!results[2]) return "";
+	return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+/** *************** Google Analytics Start ************************************* */
+// var UNQ_COOKIE = "unq";
+// var UID_COOKIE = "uid";
+// var USER_ID = "dimension1";
+// var FLOW_ID = "dimension2";
+// var SRC_ID = "dimension3";
+// var ENT_ID = "dimension4";
+// var ON_ID = "dimension5";
+// var USER_NAME = "dimension6";
+// var FLOW_TITLE = "dimension7";
+// var EXTRA_ONE = "dimension8";
+// var EXTRA_TWO = "dimension9";
+
+// (function (i, s, o, g, r, a, m) {
+//   i["GoogleAnalyticsObject"] = r;
+//   (i[r] =
+//     i[r] ||
+//     function () {
+//       (i[r].q = i[r].q || []).push(arguments);
+//     }),
+//     (i[r].l = 1 * new Date());
+//   (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+//   a.async = 1;
+//   a.src = g;
+//   m.parentNode.insertBefore(a, m);
+// })(window, document, "script", "//www.google-analytics.com/analytics.js", "ga");
+
+// var map = {};
+// map["whatfix.com"] = {
+//   trackingId: "UA-47276536-1",
+//   src: "business",
+// };
+// map["testblog.whatfix.com"] = {
+//   trackingId: "UA-82251046-1",
+// };
+// map["blog.whatfix.com"] = {
+//   trackingId: "UA-47276536-3",
+// };
+// map["academy.whatfix.com"] = {
+//   trackingId: "UA-47276536-5",
+// };
+
+// function getTrackingId() {
+//   return map[document.location.hostname].trackingId;
+// }
+
+// ga("create", getTrackingId(), {
+//   storage: "none",
+//   clientId: getCookie(UNQ_COOKIE),
+// });
+
+// function nonNull(value) {
+//   if (typeof value === "undefined" || value === null || value === "") {
+//     return "-";
+//   } else {
+//     return value;
+//   }
+// }
+
+// function getSrc() {
+//   return map[document.location.hostname].src;
+// }
+
+// function setCustomDimensions() {
+//   ga("set", ENT_ID, nonNull(null));
+//   ga("set", USER_ID, nonNull(getCookie(UID_COOKIE)));
+//   ga("set", USER_NAME, nonNull(null));
+//   ga("set", SRC_ID, getSrc());
+//   ga("set", ON_ID, nonNull(getParameterByName("src")));
+//   ga("set", EXTRA_ONE, nonNull(getCookie(UNQ_COOKIE)));
+//   ga("set", EXTRA_TWO, nonNull(null));
+// }
+// setCustomDimensions();
+
+// ga("send", "pageview");
+/** *************** Google Analytics End ************************************* */
+
+function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("switchTabContent");
+    if (tabcontent.length > 0) {
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+    }
+    tablinks = document.getElementsByClassName("switchTabLinks");
+    if (tablinks.length > 0) {
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+    }
+    var tabElement = document.getElementById(tabName);
+    if (tabElement) {
+        tabElement.style.display = "block";
+    }
+    if (evt && evt.currentTarget) {
+        evt.currentTarget.className += " active";
+    }
+}
+
+var defaultTab = document.getElementById("defaultOpen");
+if (defaultTab) {
+    defaultTab.click();
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    var elem = document.querySelector('.carousel');
+    var flkty;
+
+    function initFlickity() {
+        if (!elem) return;
+
+        var windowWidth = window.innerWidth;
+
+        if (flkty) {
+            flkty.destroy();
+            flkty = null;
+        }
+
+        if (windowWidth > 968) {
+            elem.style.display = 'flex';
+            elem.style.gap = '15px';
+            elem.style.justifyContent = 'space-between';
+            var cells = document.querySelectorAll('.carousel-cell');
+            if (cells.length > 0) {
+                cells.forEach(function (cell) {
+                    cell.style.width = '20%';
+                });
+            }
+        } else {
+            flkty = new Flickity(elem, {
+                cellAlign: windowWidth <= 500 ? 'left' : 'center',
+                contain: true,
+                wrapAround: true,
+                autoPlay: 3000,
+                prevNextButtons: false,
+                pageDots: false
+            });
+        }
+    }
+
+    initFlickity();
+    window.addEventListener('resize', initFlickity);
+});
