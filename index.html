@@ -1,7 +1,9 @@
-<!DOCTYPE >
+<!DOCTYPE>
 
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
     <title>Kibs | Africa's BioTech Company</title>
     <meta
         content="Your Trusted Partner in Biomedical Research will modernize healthcare in the 21st century. Our focus lies in creating innovative therapeutics designed to prevent diseases and lengthen healthspan—the period of life spent in good health."
@@ -22,7 +24,7 @@
         property="twitter:image" />
     <meta property="og:type" content="website" />
     <meta content="summary_large_image" name="twitter:card" />
-    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link href="https://cdn.prod.website-files.com/600be113c4111047016de64a/css/cambrian-dev.webflow.0733b0f40.min.css"
         rel="stylesheet" type="text/css" />
     <script type="text/javascript">
@@ -101,7 +103,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        
+
 </head>
 
 <body class="body-darkblue">
@@ -540,8 +542,8 @@
             }
         </style>
     </div>
-    
-    
+
+
     <div class="tr" data-ix="tr"></div>
 
 
@@ -611,10 +613,10 @@
                 <div class="menu-inner">
                     <div class="no-tb"></div>
                     <div class="center"><a href="about.html" tabindex="0" class="navlink">About</a><a
-                            href="index-dna-test.html" tabindex="0" class="navlink">DNATest</a><a href="blog/types-employee-training-programs/training.html"
-                            class="navlink">Training</a><a href="solutions.html" class="navlink">Solutions</a><a
-                            href="careers-page.html" class="navlink">Careers</a><a href="news-and-publications.html"
-                            class="navlink">News &amp; Publications</a><a href="blogs.html" class="navlink">Cart</a>
+                            href="index-dna-test.html" tabindex="0" class="navlink">DNATest</a><a
+                            href="blog/types-employee-training-programs/training.html" class="navlink">Training</a><a
+                            href="solutions.html" class="navlink">Solutions</a><a href="#" class="navlink">Careers</a><a
+                            href="#" class="navlink">News &amp; Publications</a><a href="#" class="navlink">Cart</a>
                     </div>
                     <div class="right"><a role="button" href="contact.html" target="_blank" aria-current="page"
                             class="btn btn-sm w-button w--current">Contact Us</a></div>
@@ -766,6 +768,8 @@
                     role="presentation" loading="lazy"
                     srcset="https://www.kibs.co.ke/wp/wp-content/uploads/2023/10/sucessful_project.jpg" />
             </div>
+
+
             <div class="c">
                 <div class="left-110">
                     <div class="max max-448">
@@ -774,15 +778,12 @@
                                 <h2>Our Services & Products<br /></h2>
                             </div>
                             <div class="pc pc-30 _20-ld">
-                                <p>We provide solutions in laboratory animal testing, DNA sequencing, metagenomics,
-                                    microbial identification including strain typing and antimicrobial resistance
-                                    testing, toxicity studies, GMO testing, clinical genetics, pharmacogenetics, and
-                                    NIPT testing. We also provide custom RNAi and CRISPR knockout/knockin systems. We
-                                    run a large bacterial culture library with strains to meet your reseaarch and
-                                    industrial needs. We also provide products such as defibirnated sheep blood, murine
-                                    mast cells,bone marrow cells, macrophages, dendriutic cells, and spleen cells;
-                                    bovine chondrocytes, and disease state biospecimens. Our high-performance computing
-                                    cluster allows analysis of complex biological data</p>
+                                <p>We offer solutions in laboratory animal testing, DNA sequencing, metagenomics,
+                                    microbial identification, toxicity studies, GMO testing, clinical genetics,
+                                    pharmacogenetics, and NIPT testing. Our services include custom RNAi and CRISPR
+                                    systems, a bacterial culture library, and products like defibrinated sheep blood,
+                                    murine and bovine cells, and disease state biospecimens. Additionally, our
+                                    high-performance computing cluster enables advanced biological data analysis.</p>
                             </div>
                         </div>
                         <div class="pc pc-30"><a href="solutions.html" class="cta cyan w-inline-block">
@@ -795,25 +796,41 @@
                     </div>
                 </div>
             </div>
+
+
+
+
         </section>
-
-
-
-
-
 
         <section>
 
-            <div class="container mt-3 w-100" style="display: flex;">
-                ">
+            <style>
+                @media (max-width:768px) {
+                    .container {
+                        display: block;
+                        width: 100%;
+                    }
+                }
+
+                @media (min-width:768px) {
+                    .container {
+                        display: flex;
+
+                    }
+                }
+            </style>
+
+            <div class="container mt-3 w-100">
+
                 <div class="card p-3" style="margin: 5px;">
                     <img src="https://www.kibs.co.ke/wp/wp-content/uploads/2023/10/lab-animal-testing-Africa.jpg"
                         alt="">
                     <h3 class="text-center">Laboratory Animals</h3>
                     <p class="text-dark mt-2">We have a wide range of inbred, outbred, and congenic laboratory animals
                         for preclinical studies.</p>
-                    <a style="align-items: center; display: flex; text-decoration: none;" href=""> <button
-                            class='btn btn-success custom-width'>Read More</button></a>
+                    <a style="align-items: center; display: flex; text-decoration: none;"
+                        href="/labaratory-animals.html"> <button class='btn btn-success custom-width'>Read
+                            More</button></a>
                 </div>
 
 
@@ -823,8 +840,9 @@
                     <h3 class="text-center">Microbial Genetics Services</h3>
                     <p class="text-dark mt-2">We provide same-day results on microbial identification and strain typing
                         and AMR resistance.</p>
-                    <a style="align-items: center; display: flex; text-decoration: none;" href=""> <button
-                            class="btn btn-success w-100">Read More</button></a>
+                    <a style="align-items: center; display: flex; text-decoration: none;"
+                        href="/microbial-genetics-services.html"> <button class="btn btn-success w-100">Read
+                            More</button></a>
                 </div>
 
                 <div class="card p-3" style="margin: 15px;">
@@ -833,22 +851,23 @@
                     <h3 class="text-center">DNA Sequencing Services</h3>
                     <p class="text-dark mt-2">We provide best-in-class DNA sequencing services with expert
                         bioinformatics analysis.</p>
-                    <a style="align-items: center; display: flex; text-decoration: none;" href=""> <button
-                            class="btn btn-success w-100">Read More</button></a>
+                    <a style="align-items: center; display: flex; text-decoration: none;"
+                        href="DNA-sequencing-services.html"> <button class="btn btn-success w-100">Read
+                            More</button></a>
                 </div>
 
 
             </div>
 
-            <div class="container mt-3 w-100" style="display: flex;">
-                ">
+            <div class="container mt-3 w-100">
+
                 <div class="card p-3" style="margin: 5px;">
                     <img src="https://www.kibs.co.ke/wp/wp-content/uploads/2023/10/Toxicity-Studies-Africa.jpg" alt="">
                     <h3 class="text-center">Animal Testing</h3>
                     <p class="text-dark mt-2">We provide carcinogenicity, dermal toxicity, genotoxicity, ocular
                         irritation, pharmacology, and other toxicity studies.</p>
-                    <a style="align-items: center; display: flex; text-decoration: none;" href=""> <button
-                            class="btn btn-success w-100">Read More</button></a>
+                    <a style="align-items: center; display: flex; text-decoration: none;" href="animal-testing.html">
+                        <button class="btn btn-success w-100">Read More</button></a>
                 </div>
 
 
@@ -857,8 +876,9 @@
                     <h3 class="text-center">Pathology & Laboratory</h3>
                     <p class="text-dark mt-2">We provide clinical genetics tests, cancer genomics, NIPT tests, and other
                         specilaized lab tests to hospitals.</p>
-                    <a style="align-items: center; display: flex; text-decoration: none;" href=""> <button
-                            class="btn btn-success w-100">Read More</button></a>
+                    <a style="align-items: center; display: flex; text-decoration: none;"
+                        href="pathology-and-laboratory.html"> <button class="btn btn-success w-100">Read
+                            More</button></a>
                 </div>
 
                 <div class="card p-3" style="margin: 15px;">
@@ -867,8 +887,9 @@
                     <h3 class="text-center">Bacterial Culture Collection</h3>
                     <p class="text-dark mt-2">We operate the first Culture Collection in East & Central Africa with a
                         wide collection of bacterial strains.</p>
-                    <a style="align-items: center; display: flex; text-decoration: none;" href=""> <button
-                            class="btn btn-success w-100">Read More</button></a>
+                    <a style="align-items: center; display: flex; text-decoration: none;"
+                        href="bacterial-culture-collection.html"> <button class="btn btn-success w-100">Read
+                            More</button></a>
                 </div>
 
 
